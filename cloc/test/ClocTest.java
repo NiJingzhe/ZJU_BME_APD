@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 
 public class ClocTest {
 
+
+    // Test case for processing files with code comments and blank lines   
     @Test
     public void testProcessFileWithCodeCommentsAndBlankLines() throws IOException {
         // 准备测试文件内容
@@ -40,6 +42,8 @@ public class ClocTest {
         Files.delete(testFile);
     }
 
+    
+    // Test case for empty file
     @Test
     public void testProcessFileEmptyFile() throws IOException {
         // 创建空文件
@@ -57,6 +61,7 @@ public class ClocTest {
         Files.delete(emptyFile);
     }
 
+    // Test case for file contains only comments
     @Test
     public void testProcessFileOnlyComments() throws IOException {
         // 准备只有注释的文件内容
@@ -80,7 +85,8 @@ public class ClocTest {
         // 删除临时文件
         Files.delete(testFile);
     }
-
+    
+    // Test file for FileStats add method
     @Test
     public void testFileStatsAddMethod() {
         // 创建两个 FileStats 对象
