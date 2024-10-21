@@ -11,7 +11,11 @@ public class ClocTest {
     @Test
     public void testProcessFileWithCodeCommentsAndBlankLines() throws IOException {
         // 准备测试文件内容
-        String testContent = "public class Test {\n" +
+        // 5 lines of code
+        // 3 lines of comments
+        // 1 blank line
+        String testContent = 
+                "public class Test {\n" +
                 "   // This is a comment\n" +
                 "   public void method() {\n" +
                 "       System.out.println(\"Hello, world!\");\n" +
