@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Cloc {
 
-    private static class FileStats {
-        int codeLines = 0;
-        int commentLines = 0;
-        int blankLines = 0;
+    public static class FileStats {
+        public int codeLines = 0;
+        public int commentLines = 0;
+        public int blankLines = 0;
 
-        void add(FileStats other) {
+        public void add(FileStats other) {
             this.codeLines += other.codeLines;
             this.commentLines += other.commentLines;
             this.blankLines += other.blankLines;
@@ -22,8 +22,8 @@ public class Cloc {
     }
 
     public static void main(String[] args) {
-        if (args.length != 1 || args[0] == "-h" || args[0] == "--help") {
-            System.out.println("Usage: java CodeCounter <file or directory path>");
+        if (args.length != 1 || args[0].equals("-h") || args[0].equals("--help")) {
+            System.out.println("Usage: java Cloc <file or directory path>");
             return;
         }
 
@@ -62,7 +62,8 @@ public class Cloc {
         }
     }
 
-    private static FileStats processFile(Path file) throws IOException {
+    // 将processFile改为public以便于在test文件夹中访问
+    public static FileStats processFile(Path file) throws IOException {
         FileStats stats = new FileStats();
         boolean blockComment = false; // 标记块注释的状态
 
