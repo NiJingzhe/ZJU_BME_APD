@@ -2,14 +2,14 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-public class CodeCounter {
+public class Cloc {
 
-    private static class FileStats {
-        int codeLines = 0;
-        int commentLines = 0;
-        int blankLines = 0;
+    public static class FileStats {
+        public int codeLines = 0;
+        public int commentLines = 0;
+        public int blankLines = 0;
 
-        void add(FileStats other) {
+        public void add(FileStats other) {
             this.codeLines += other.codeLines;
             this.commentLines += other.commentLines;
             this.blankLines += other.blankLines;
@@ -17,28 +17,42 @@ public class CodeCounter {
 
         @Override
         public String toString() {
-            return String.format("Code Lines: %d, Comment Lines: %d, Blank Lines: %d", codeLines, commentLines, blankLines);
+            return String.format("Code Lines: %d, Comment Lines: %d, Blank Lines: %d", codeLines, commentLines,
+                    blankLines);
         }
     }
 
     public static void main(String[] args) {
-        if (args.length != 1 || args[0] == "-h" || args[0] == "--help") {
-            System.out.println("Usage: java CodeCounter <file or directory path>");
+
+        // Help menu
+        if (args.length != 1 || args[0].equals("-h") || args[0].equals("--help")) {
+            System.out.println("Usage: java Cloc <file or directory path>");
             return;
         }
 
+        // Get the path (dir or single file both ok)
         Path path = Paths.get(args[0]);
+
+        // Make sure the file or directory exists
         if (!Files.exists(path)) {
             System.out.println("File or directory does not exist.");
             return;
         }
 
+        // If so, we will create a new FileStats object to store the total statistics
         FileStats totalStats = new FileStats();
 
+        // Recursively process the directory or a single file
         try {
             if (Files.isDirectory(path)) {
                 // 递归处理目录
                 Files.walk(path).filter(Files::isRegularFile).forEach(file -> {
+
+                    // If this is a java code file
+                    if (!file.toString().endsWith(".java")) {
+                        return;
+                    }
+
                     try {
                         FileStats stats = processFile(file);
                         System.out.println(file + ": " + stats);
@@ -62,7 +76,7 @@ public class CodeCounter {
         }
     }
 
-    private static FileStats processFile(Path file) throws IOException {
+    public static FileStats processFile(Path file) throws IOException {
         FileStats stats = new FileStats();
         boolean blockComment = false; // 标记块注释的状态
 
