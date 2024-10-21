@@ -17,18 +17,18 @@ public class Cloc {
 
         @Override
         public String toString() {
-            return String.format("Code Lines: %d, Comment Lines: %d, Blank Lines: %d", codeLines, commentLines, blankLines);
+            return String.format("Code Lines: %d, Comment Lines: %d, Blank Lines: %d", codeLines, commentLines,
+                    blankLines);
         }
     }
 
     public static void main(String[] args) {
-        
+
         // Help menu
         if (args.length != 1 || args[0].equals("-h") || args[0].equals("--help")) {
             System.out.println("Usage: java Cloc <file or directory path>");
             return;
         }
-        
 
         // Get the path (dir or single file both ok)
         Path path = Paths.get(args[0]);
@@ -38,21 +38,21 @@ public class Cloc {
             System.out.println("File or directory does not exist.");
             return;
         }
-        
+
         // If so, we will create a new FileStats object to store the total statistics
         FileStats totalStats = new FileStats();
-        
+
         // Recursively process the directory or a single file
         try {
             if (Files.isDirectory(path)) {
                 // 递归处理目录
                 Files.walk(path).filter(Files::isRegularFile).forEach(file -> {
-                    
+
                     // If this is a java code file
                     if (!file.toString().endsWith(".java")) {
                         return;
                     }
-                    
+
                     try {
                         FileStats stats = processFile(file);
                         System.out.println(file + ": " + stats);

@@ -14,8 +14,7 @@ public class ClocTest {
         // 5 lines of code
         // 3 lines of comments
         // 1 blank line
-        String testContent = 
-                "public class Test {\n" +
+        String testContent = "public class Test {\n" +
                 "   // This is a comment\n" +
                 "   public void method() {\n" +
                 "       System.out.println(\"Hello, world!\");\n" +
