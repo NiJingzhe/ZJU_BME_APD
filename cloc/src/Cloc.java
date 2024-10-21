@@ -2,7 +2,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-public class CodeCounter {
+public class Cloc {
 
     private static class FileStats {
         int codeLines = 0;
